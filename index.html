@@ -6,6 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECOIN TEMPLATE</title>
+    <script src="jquery-3.6.1.min.js"></script>
+    <script>
+        $('textarea').on('input', function(){
+            var code = $('textarea').val();
+            // Credits
+            var credits = code.split('Credits');
+            var creditsN = credits[1].split('from');
+            $('.credits').html(creditsN[0]);
+
+            // PRICE
+            if(creditsN[0] == 20 || creditsN[0] == 50 || creditsN[0] == 100) {
+                $('.price').html(parseInt(creditsN[0]) + 5);
+            } else if (creditsN[0] == 200 || creditsN[0] == 300) {
+                $('.price').html(parseInt(creditsN[0]) + 10);
+            } else if (creditsN[0] == 400 || creditsN[0] == 500) {
+                $('.price').html(parseInt(creditsN[0]) + 15);
+            } else if (creditsN[0] == 1000) {
+                $('.price').html(parseInt(creditsN[0]) + 30);
+            }
+            
+            // PIN
+            var pin = code.split('PIN is ');
+            var pinN = pin[1].split('. Password is ');
+            $('.pin').html(pinN[0]);
+
+            // PASS
+            var pass = code.split('Password is ');
+            var passN = pass[1].split('. Serial # is ');
+            $('.pass').html(passN[0]);
+
+            // SERIAL
+            var serial = code.split('. Serial # is ');
+            $('.serial').html(serial[1]);
+        });
+    </script>
     <style>
         @font-face {
             font-family: 'Bar-Code 39';
@@ -46,8 +81,12 @@
         .barcode {
             font-family: 'Bar-Code 39';
         }
+        @media print {
+            textarea {
+                display: none;
+            }
+        }
     </style>
-    <script src="jquery-3.6.1.min.js"></script>
 </head>
 <body>
     <form action="">
@@ -83,40 +122,6 @@
             <td class="tc serial" colspan="2">123123123123123123123</td>
         </tr>
     </table>
-    <script>
-        $('textarea').on('change', function(){
-            var code = $('textarea').val();
-            // Credits
-            var credits = code.split('Credits');
-            var creditsN = credits[1].split('from');
-            $('.credits').html(creditsN[0]);
-
-            // PRICE
-            if(creditsN[0] == 20 || creditsN[0] == 50 || creditsN[0] == 100) {
-                $('.price').html(parseInt(creditsN[0]) + 5);
-            } else if (creditsN[0] == 200 || creditsN[0] == 300) {
-                $('.price').html(parseInt(creditsN[0]) + 10);
-            } else if (creditsN[0] == 400 || creditsN[0] == 500) {
-                $('.price').html(parseInt(creditsN[0]) + 15);
-            } else if (creditsN[0] == 1000) {
-                $('.price').html(parseInt(creditsN[0]) + 30);
-            }
-            
-            // PIN
-            var pin = code.split('PIN is ');
-            var pinN = pin[1].split('. Password is ');
-            $('.pin').html(pinN[0]);
-
-            // PASS
-            var pass = code.split('Password is ');
-            var passN = pass[1].split('. Serial # is ');
-            $('.pass').html(passN[0]);
-
-            // SERIAL
-            var serial = code.split('. Serial # is ');
-            $('.serial').html(serial[1]);
-        });
-    </script>
 </body>
 
 </html>
